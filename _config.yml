@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-s24/team03-s24-4pm-8
 owner: ucsb-cs156-s24
 repo_name: team03-s24-4pm-8
-pull_requests: [{"author":{"id":"MDQ6VXNlcjYxMzA2Mzkw","is_bot":false,"login":"Jumshim","name":"jeffmun"},"headRefName":"JeffreyHelpRequestCopies","number":61,"title":"jm - Copied over help request files from team02","url":"https://github.com/ucsb-cs156-s24/team03-s24-4pm-8/pull/61"}]
+pull_requests: [{"author":{"id":"MDQ6VXNlcjYxMzA2Mzkw","is_bot":false,"login":"Jumshim","name":"jeffmun"},"headRefName":"JeffreyHelpRequestFixtures","number":62,"title":"jm - created helpRequestFixtures ","url":"https://github.com/ucsb-cs156-s24/team03-s24-4pm-8/pull/62"},{"author":{"id":"MDQ6VXNlcjYxMzA2Mzkw","is_bot":false,"login":"Jumshim","name":"jeffmun"},"headRefName":"JeffreyHelpRequestCopies","number":61,"title":"jm - Copied over help request files from team02","url":"https://github.com/ucsb-cs156-s24/team03-s24-4pm-8/pull/61"}]
