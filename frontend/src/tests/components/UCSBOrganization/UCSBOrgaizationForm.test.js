@@ -16,7 +16,7 @@ jest.mock('react-router-dom', () => ({
 describe("UCSBOrganizationForm tests", () => {
     const queryClient = new QueryClient();
 
-    const expectedHeaders = ["orgTranslationShort", "orgTranslation"];
+    const expectedHeaders = ["orgCode", "Short Organization Name", "Full Organization Name", "Inactive Status"];
     const testId = "UCSBOrganizationForm";
 
     test("renders correctly with no initialContents", async () => {
@@ -53,8 +53,13 @@ describe("UCSBOrganizationForm tests", () => {
             expect(header).toBeInTheDocument();
         });
 
-        expect(await screen.findByTestId(`${testId}-orgCode`)).toBeInTheDocument(); // check
-        expect(screen.getByText(`orgCode`)).toBeInTheDocument(); // check orgCode -> Id
+        //expect(await screen.findByTestId(`${testId}-orgCode`)).toBeInTheDocument(); // check
+        //expect(screen.getByText(`orgCode`)).toBeInTheDocument(); // check orgCode -> Id
+        // passes with ot without these ^^ 
+
+        // IDK if I am allowed to put Id in here 
+        expect(await screen.findByTestId(`${testId}-id`)).toBeInTheDocument();
+        expect(screen.getByText(`Id`)).toBeInTheDocument();
     });
 
 
@@ -89,18 +94,15 @@ describe("UCSBOrganizationForm tests", () => {
         const mockSubmit = screen.getByTestId(`${testId}-submit`);
         fireEvent.change(mockSubmit, { target: { value: "" } });
 
-        //const mockSubmitAction = jest.fn();
-        //await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
 
         //await screen.findByText(/orgCode is required/);
         await screen.findByText(/orgTranslationShort is required/);
         expect(screen.getByText(/orgCode is required/)).toBeInTheDocument();
         expect(screen.getByText(/orgTranslation is required/)).toBeInTheDocument();
 
-        
 
-        //const orgCodeInput = screen.getByTestId(`${testId}-orgCode`);
-        //fireEvent.change(orgCodeInput, { target: { value: "a".repeat(6) } });
+        const orgCodeInput = screen.getByTestId(`${testId}-orgCode`);
+        fireEvent.change(orgCodeInput, { target: { value: "a".repeat(6) } });
         
         const orgTranslationShortInput = screen.getByTestId(`${testId}-orgTranslationShort`);
         fireEvent.change(orgTranslationShortInput, { target: { value: "a".repeat(31) } });
@@ -119,6 +121,7 @@ describe("UCSBOrganizationForm tests", () => {
         fireEvent.click(submitButton);
 
         await waitFor(() => {
+            expect(screen.getByText(/Max length 5 characters/)).toBeInTheDocument();
             expect(screen.getByText(/Max length 30 characters/)).toBeInTheDocument();
             expect(screen.getByText(/Max length 50 characters/)).toBeInTheDocument();
 

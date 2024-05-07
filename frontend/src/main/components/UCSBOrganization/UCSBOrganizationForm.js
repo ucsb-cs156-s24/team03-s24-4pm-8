@@ -24,6 +24,20 @@ function UCSBOrganizationForm({ initialContents, submitAction, buttonLabel = "Cr
 
             {initialContents && (
                 <Form.Group className="mb-3" >
+                <Form.Label htmlFor="id">Id</Form.Label>
+                <Form.Control
+                    data-testid={testIdPrefix + "-id"}
+                    id="id"
+                    type="text"
+                    {...register("id")}
+                    value={initialContents.id}
+                    disabled
+                />
+                </Form.Group>
+                
+            )}
+
+            <Form.Group className="mb-3" >
                     <Form.Label htmlFor="orgCode">orgCode</Form.Label>
                     <Form.Control
                         data-testid={testIdPrefix + "-orgCode"}
@@ -51,10 +65,9 @@ function UCSBOrganizationForm({ initialContents, submitAction, buttonLabel = "Cr
                         {errors.orgCode?.message}
                     </Form.Control.Feedback>
                 </Form.Group>
-            )}
 
             <Form.Group className="mb-3" >
-                <Form.Label htmlFor="orgTranslationShort">orgTranslationShort</Form.Label>
+                <Form.Label htmlFor="orgTranslationShort">Short Organization Name</Form.Label>
                 <Form.Control
                     data-testid={testIdPrefix + "-orgTranslationShort"}
                     id="orgTranslationShort"
@@ -74,7 +87,7 @@ function UCSBOrganizationForm({ initialContents, submitAction, buttonLabel = "Cr
             </Form.Group>
 
             <Form.Group className="mb-3" >
-                <Form.Label htmlFor="orgTranslation">orgTranslation</Form.Label>
+                <Form.Label htmlFor="orgTranslation">Full Organization Name</Form.Label>
                 <Form.Control
                     data-testid={testIdPrefix + "-orgTranslation"}
                     id="orgTranslation"
@@ -89,12 +102,12 @@ function UCSBOrganizationForm({ initialContents, submitAction, buttonLabel = "Cr
                     })}
                 />
                 <Form.Control.Feedback type="invalid">
-                    {errors.orgTranslation?.message} // was originally .desctiption
+                    {errors.orgTranslation?.message} 
                 </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-3">
-                <Form.Label htmlFor="inactive">Inactive</Form.Label>
+                <Form.Label htmlFor="inactive">Inactive Status</Form.Label>
                 <Form.Control
                     data-testid={testIdPrefix + "-inactive"}
                     as="select"
