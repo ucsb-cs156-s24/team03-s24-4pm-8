@@ -29,20 +29,27 @@ function UCSBOrganizationForm({ initialContents, submitAction, buttonLabel = "Cr
                         data-testid={testIdPrefix + "-orgCode"}
                         id="orgCode"
                         type="text"
-                        /*
+                        
                         isInvalid={Boolean(errors.orgCode)} // was originally .name
                         {...register("orgCode", {
                             required: "orgCode is required.",
                             maxLength : {
-                            value: 5,
-                            message: "Max length 5 characters"
+                                value: 5,
+                                message: "Max length 5 characters"
                         }
                     })}
-                    */
+                    
+                    
+                   /*
                     {...register("orgCode")}
                     value={initialContents.orgCode}
                     disabled
+                    */
                     />
+
+                    <Form.Control.Feedback type="invalid">
+                        {errors.orgCode?.message}
+                    </Form.Control.Feedback>
                 </Form.Group>
             )}
 

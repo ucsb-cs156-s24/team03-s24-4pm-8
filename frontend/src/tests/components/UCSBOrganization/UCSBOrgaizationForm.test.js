@@ -86,10 +86,15 @@ describe("UCSBOrganizationForm tests", () => {
         expect(await screen.findByText(/Create/)).toBeInTheDocument();
         const submitButton = screen.getByText(/Create/);
         fireEvent.click(submitButton);
+        const mockSubmit = screen.getByTestId(`${testId}-submit`);
+        fireEvent.change(mockSubmit, { target: { value: "" } });
+
+        //const mockSubmitAction = jest.fn();
+        //await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
 
         //await screen.findByText(/orgCode is required/);
         await screen.findByText(/orgTranslationShort is required/);
-        //expect(screen.getByText(/orgTranslationShort is required/)).toBeInTheDocument();
+        expect(screen.getByText(/orgCode is required/)).toBeInTheDocument();
         expect(screen.getByText(/orgTranslation is required/)).toBeInTheDocument();
 
         
@@ -105,9 +110,11 @@ describe("UCSBOrganizationForm tests", () => {
 
         const inactiveTrueInput = screen.getByTestId(`${testId}-inactive`);
         fireEvent.change(inactiveTrueInput, { target: { value: true } });
+        expect(inactiveTrueInput.value).toBe('true');
 
         const inactiveFalseInput = screen.getByTestId(`${testId}-inactive`);
         fireEvent.change(inactiveFalseInput, { target: { value: false } });
+        expect(inactiveFalseInput.value).toBe('false');
 
         fireEvent.click(submitButton);
 
