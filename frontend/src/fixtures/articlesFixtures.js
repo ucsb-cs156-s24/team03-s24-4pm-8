@@ -36,4 +36,4 @@ const articlesFixtures = {
 };
 
 
-export { ucsbArticlesFixtures };
+export {ArticlesFixtures};
