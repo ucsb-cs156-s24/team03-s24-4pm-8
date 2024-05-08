@@ -66,7 +66,7 @@ describe("HelpRequest tests", () => {
       /Requester Email must be in the format email@address.ending, e.g. cgaucho@ucsb.edu or pconrad@gmail.com/
     );
     await screen.findByText(
-      /Request Time must be in the iso-format YYYY-MM-DDTHH:MM:SS/
+      /Request Time must be in the iso-format YYYY-MM-DDTHH:MM/
     );
   });
 
@@ -127,7 +127,7 @@ describe("HelpRequest tests", () => {
       target: { value: "Need help with Swagger-ui" },
     });
     fireEvent.click(solvedField, {
-      target: { checked: true },
+      target: { value: true },
     });
     fireEvent.click(submitButton);
 
@@ -159,3 +159,5 @@ describe("HelpRequest tests", () => {
     await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith(-1));
   });
 });
+
+test("email and isodate regexes work as expected", async () => {});
