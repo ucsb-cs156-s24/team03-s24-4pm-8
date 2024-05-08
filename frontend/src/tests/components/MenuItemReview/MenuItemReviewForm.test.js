@@ -41,6 +41,25 @@ describe("MenuItemReview tests", () => {
         expect(screen.getByTestId(/MenuItemReviewForm-id/)).toHaveValue("1");
     });
 
+    test("Correct Error messsages on bad input", async () => {
+
+        render(
+            <Router  >
+                <MenuItemReviewForm />
+            </Router>
+        );
+        await screen.findByTestId("MenuItemReviewForm-reviewerEmail");
+        const reviewerEmailField = screen.getByTestId("MenuItemReviewForm-reviewerEmail");
+        const dateReviewedField = screen.getByTestId("MenuItemReviewForm-dateReviewed");
+        const submitButton = screen.getByTestId("MenuItemReviewForm-submit");
+
+        fireEvent.change(reviewerEmailField, { target: { value: 'bad-input' } });
+        fireEvent.change(dateReviewedField, { target: { value: 'bad-input' } });
+        fireEvent.click(submitButton);
+
+        await screen.findByText(/Reviewer email must be a valid email./);
+    });
+
     test("Correct Error messsages on missing input", async () => {
 
         render(
@@ -87,9 +106,8 @@ describe("MenuItemReview tests", () => {
         fireEvent.click(submitButton);
 
         await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
-
-        expect(screen.queryByText(/dateReviewed must be in ISO format/)).not.toBeInTheDocument();
-
+        
+        expect(screen.queryByText(/Reviewer email must be a valid email./)).not.toBeInTheDocument();
     });
 
 

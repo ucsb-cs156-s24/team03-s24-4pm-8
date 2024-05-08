@@ -22,7 +22,7 @@ const menuItemReviewFixtures = {
             "reviewerEmail": "ldelplaya@ucsb.edu",
             "stars": 0,
             "dateReviewed": "2022-03-11T00:00:00",
-            "comments": "I hate the pie.."
+            "comments": "I hate the pie."
         },
         {
             "id": 3,
