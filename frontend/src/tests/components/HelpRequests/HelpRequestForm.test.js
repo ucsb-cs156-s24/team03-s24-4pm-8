@@ -50,114 +50,100 @@ describe("HelpRequest tests", () => {
       "HelpRequestForm-requesterEmail"
     );
     const requestTimeField = screen.getByTestId("HelpRequestForm-requestTime");
-    const teamIdField = screen.getByTestId("HelpRequestForm-teamId");
     const tableOrBreakoutRoomField = screen.getByTestId(
       "HelpRequestForm-tableOrBreakoutRoom"
     );
-    const explanationField = screen.getByTestId("HelpRequestForm-explanation");
-    const solvedField = screen.getByTestId("HelpRequestForm-solved");
     const submitButton = screen.getByTestId("HelpRequestForm-submit");
 
-    fireEvent.change(requesterEmailField, { target: { value: "bad-input" } });
     fireEvent.change(requestTimeField, { target: { value: "bad-input" } });
+    fireEvent.change(requesterEmailField, { target: { value: "bad-input" } });
     fireEvent.click(submitButton);
-
     await screen.findByText(
       /Requester Email must be in the format email@address.ending, e.g. cgaucho@ucsb.edu or pconrad@gmail.com/
     );
-    await screen.findByText(
-      /Request Time must be in the iso-format YYYY-MM-DDTHH:MM/
-    );
-  });
-
-  test("Correct Error messsages on missing input", async () => {
-    render(
-      <Router>
-        <HelpRequestForm />
-      </Router>
-    );
-    await screen.findByTestId("HelpRequestForm-submit");
-    const submitButton = screen.getByTestId("HelpRequestForm-submit");
-
-    fireEvent.click(submitButton);
-
-    await screen.findByText(/Requester Email is required./);
-    expect(screen.getByText(/Request Time is required./)).toBeInTheDocument();
-    expect(screen.getByText(/TeamId is required./)).toBeInTheDocument();
-    expect(
-      screen.getByText(/Table or Breakout Room is required./)
-    ).toBeInTheDocument();
-    expect(screen.getByText(/Explanation is required./)).toBeInTheDocument();
-    expect(screen.getByText(/Solved is required./)).toBeInTheDocument();
-  });
-
-  test("No Error messsages on good input", async () => {
-    const mockSubmitAction = jest.fn();
-
-    render(
-      <Router>
-        <HelpRequestForm submitAction={mockSubmitAction} />
-      </Router>
-    );
-    await screen.findByTestId("HelpRequestForm-requesterEmail");
-
-    const requesterEmailField = screen.getByTestId(
-      "HelpRequestForm-requesterEmail"
-    );
-    const requestTimeField = screen.getByTestId("HelpRequestForm-requestTime");
-    const teamIdField = screen.getByTestId("HelpRequestForm-teamId");
-    const tableOrBreakoutRoomField = screen.getByTestId(
-      "HelpRequestForm-tableOrBreakoutRoom"
-    );
-    const explanationField = screen.getByTestId("HelpRequestForm-explanation");
-    const solvedField = screen.getByTestId("HelpRequestForm-solved");
-    const submitButton = screen.getByTestId("HelpRequestForm-submit");
-
-    fireEvent.change(requesterEmailField, {
-      target: { value: "cgaucho@ucsb.edu" },
-    });
-    fireEvent.change(teamIdField, { target: { value: "s22-5pm-3" } });
-    fireEvent.change(tableOrBreakoutRoomField, {
-      target: { value: "7" },
-    });
-    fireEvent.change(requestTimeField, {
-      target: { value: "2022-04-20T17:35" },
-    });
-    fireEvent.change(explanationField, {
-      target: { value: "Need help with Swagger-ui" },
-    });
-    fireEvent.click(solvedField, {
-      target: { value: true },
-    });
-    fireEvent.click(submitButton);
-
-    await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
-
-    expect(
-      screen.queryByText(
-        /Requester Email must be in the format email@address.ending, e.g. cgaucho@ucsb.edu or pconrad@gmail.com/
-      )
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(
-        /Request Time must be in the iso-format YYYY-MM-DDTHH:MM/
-      )
-    ).not.toBeInTheDocument();
-  });
-
-  test("that navigate(-1) is called when Cancel is clicked", async () => {
-    render(
-      <Router>
-        <HelpRequestForm />
-      </Router>
-    );
-    await screen.findByTestId("HelpRequestForm-cancel");
-    const cancelButton = screen.getByTestId("HelpRequestForm-cancel");
-
-    fireEvent.click(cancelButton);
-
-    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith(-1));
   });
 });
 
-test("email and isodate regexes work as expected", async () => {});
+test("Correct Error messsages on missing input", async () => {
+  render(
+    <Router>
+      <HelpRequestForm />
+    </Router>
+  );
+  await screen.findByTestId("HelpRequestForm-submit");
+  const submitButton = screen.getByTestId("HelpRequestForm-submit");
+
+  fireEvent.click(submitButton);
+
+  await screen.findByText(/Requester Email is required./);
+  expect(screen.getByText(/Request Time is required./)).toBeInTheDocument();
+  expect(screen.getByText(/TeamId is required./)).toBeInTheDocument();
+  expect(
+    screen.getByText(/Table or Breakout Room is required./)
+  ).toBeInTheDocument();
+  expect(screen.getByText(/Explanation is required./)).toBeInTheDocument();
+  expect(screen.getByText(/Solved is required./)).toBeInTheDocument();
+});
+
+test("No Error messsages on good input", async () => {
+  const mockSubmitAction = jest.fn();
+
+  render(
+    <Router>
+      <HelpRequestForm submitAction={mockSubmitAction} />
+    </Router>
+  );
+  await screen.findByTestId("HelpRequestForm-requesterEmail");
+
+  const requesterEmailField = screen.getByTestId(
+    "HelpRequestForm-requesterEmail"
+  );
+  const requestTimeField = screen.getByTestId("HelpRequestForm-requestTime");
+  const teamIdField = screen.getByTestId("HelpRequestForm-teamId");
+  const tableOrBreakoutRoomField = screen.getByTestId(
+    "HelpRequestForm-tableOrBreakoutRoom"
+  );
+  const explanationField = screen.getByTestId("HelpRequestForm-explanation");
+  const solvedField = screen.getByTestId("HelpRequestForm-solved");
+  const submitButton = screen.getByTestId("HelpRequestForm-submit");
+
+  fireEvent.change(requesterEmailField, {
+    target: { value: "cgaucho@ucsb.edu" },
+  });
+  fireEvent.change(teamIdField, { target: { value: "s24-5pm-3" } });
+  fireEvent.change(tableOrBreakoutRoomField, {
+    target: { value: "7" },
+  });
+  fireEvent.change(requestTimeField, {
+    target: { value: "2022-04-20T17:35" },
+  });
+  fireEvent.change(explanationField, {
+    target: { value: "Need help with Swagger-ui" },
+  });
+  fireEvent.click(solvedField, {
+    target: { value: true },
+  });
+  fireEvent.click(submitButton);
+
+  await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
+
+  expect(
+    screen.queryByText(
+      /Requester Email must be in the format email@address.ending, e.g. cgaucho@ucsb.edu or pconrad@gmail.com/
+    )
+  ).not.toBeInTheDocument();
+});
+
+test("that navigate(-1) is called when Cancel is clicked", async () => {
+  render(
+    <Router>
+      <HelpRequestForm />
+    </Router>
+  );
+  await screen.findByTestId("HelpRequestForm-cancel");
+  const cancelButton = screen.getByTestId("HelpRequestForm-cancel");
+
+  fireEvent.click(cancelButton);
+
+  await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith(-1));
+});

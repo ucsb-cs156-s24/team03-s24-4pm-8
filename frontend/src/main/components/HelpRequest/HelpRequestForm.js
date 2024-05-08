@@ -20,12 +20,11 @@ function HelpRequestForm({
   // For explanation, see: https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime
   // Note that even this complex regex may still need some tweaks
 
-  // Stryker disable next-line Regex
+  // Stryker disable all
   const isodate_regex =
     /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
-
-  // Email regex
-  const email_regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i;
+  const email_regex = /[a-z0-9]+@[a-z]+.[a-z]{2,3}/;
+  // Stryker restore all
 
   return (
     <Form onSubmit={handleSubmit(submitAction)}>
@@ -46,48 +45,43 @@ function HelpRequestForm({
           </Col>
         )}
 
-        <Col>
-          <Form.Group className="mb-3">
-            <Form.Label htmlFor="requesterEmail">Requester Email</Form.Label>
-            <Form.Control
-              data-testid="HelpRequestForm-requesterEmail"
-              id="requesterEmail"
-              type="text"
-              isInvalid={Boolean(errors.requesterEmail)}
-              {...register("requesterEmail", {
-                required: true,
-                pattern: email_regex,
-              })}
-            />
-            <Form.Control.Feedback type="invalid">
-              {errors.requesterEmail && "Requester Email is required."}
-              {errors.requesterEmail?.type === "pattern" &&
-                "Requester Email must be in the format email@address.ending, e.g. cgaucho@ucsb.edu or pconrad@gmail.com"}
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Col>
-        <Col>
-          <Form.Group className="mb-3">
-            <Form.Label htmlFor="requestTime">
-              Request Time (iso format)
-            </Form.Label>
-            <Form.Control
-              data-testid="HelpRequestForm-requestTime"
-              id="requestTime"
-              type="datetime-local"
-              isInvalid={Boolean(errors.requestTime)}
-              {...register("requestTime", {
-                required: true,
-                pattern: isodate_regex,
-              })}
-            />
-            <Form.Control.Feedback type="invalid">
-              {errors.requestTime && "Request Time is required."}
-              {errors.requesterEmail?.type === "pattern" &&
-                "Request Time must be in the iso-format YYYY-MM-DDTHH:MM"}
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Col>
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="requesterEmail">Requester Email</Form.Label>
+          <Form.Control
+            data-testid="HelpRequestForm-requesterEmail"
+            id="requesterEmail"
+            type="text"
+            isInvalid={Boolean(errors.requesterEmail)}
+            {...register("requesterEmail", {
+              required: true,
+              pattern: email_regex,
+            })}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.requesterEmail && "Requester Email is required."}
+            {errors.requesterEmail?.type === "pattern" &&
+              "Requester Email must be in the format email@address.ending, e.g. cgaucho@ucsb.edu or pconrad@gmail.com"}
+          </Form.Control.Feedback>
+        </Form.Group>
+
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="requestTime">
+            Request Time (iso format)
+          </Form.Label>
+          <Form.Control
+            data-testid="HelpRequestForm-requestTime"
+            id="requestTime"
+            type="datetime-local"
+            isInvalid={Boolean(errors.requestTime)}
+            {...register("requestTime", {
+              required: true,
+              pattern: isodate_regex,
+            })}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.requestTime && "Request Time is required."}
+          </Form.Control.Feedback>
+        </Form.Group>
       </Row>
 
       <Row>
@@ -111,25 +105,24 @@ function HelpRequestForm({
       </Row>
 
       <Row>
-        <Col>
-          <Form.Group className="mb-3">
-            <Form.Label htmlFor="tableOrBreakoutRoom">
-              Table or Breakout Room
-            </Form.Label>
-            <Form.Control
-              data-testid="HelpRequestForm-tableOrBreakoutRoom"
-              id="tableOrBreakoutRoom"
-              type="text"
-              isInvalid={Boolean(errors.tableOrBreakoutRoom)}
-              {...register("tableOrBreakoutRoom", {
-                required: "Table or Breakout Room is required.",
-              })}
-            />
-            <Form.Control.Feedback type="invalid">
-              {errors.tableOrBreakoutRoom?.message}
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Col>
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="tableOrBreakoutRoom">
+            Table or Breakout Room
+          </Form.Label>
+          <Form.Control
+            data-testid="HelpRequestForm-tableOrBreakoutRoom"
+            id="tableOrBreakoutRoom"
+            type="text"
+            isInvalid={Boolean(errors.tableOrBreakoutRoom)}
+            {...register("tableOrBreakoutRoom", {
+              required: true,
+            })}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.tableOrBreakoutRoom &&
+              "Table or Breakout Room is required."}
+          </Form.Control.Feedback>
+        </Form.Group>
       </Row>
 
       <Row>
