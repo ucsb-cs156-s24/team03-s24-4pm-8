@@ -84,7 +84,7 @@ function HelpRequestForm({
             <Form.Control.Feedback type="invalid">
               {errors.requestTime && "Request Time is required."}
               {errors.requesterEmail?.type === "pattern" &&
-                "Request Time must be in the iso-format YYYY-MM-DDTHH:MM:SS"}
+                "Request Time must be in the iso-format YYYY-MM-DDTHH:MM"}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>

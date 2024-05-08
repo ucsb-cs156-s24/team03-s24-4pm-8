@@ -121,7 +121,7 @@ describe("HelpRequest tests", () => {
       target: { value: "7" },
     });
     fireEvent.change(requestTimeField, {
-      target: { value: "2022-04-20T17:35:00" },
+      target: { value: "2022-04-20T17:35" },
     });
     fireEvent.change(explanationField, {
       target: { value: "Need help with Swagger-ui" },
@@ -140,7 +140,7 @@ describe("HelpRequest tests", () => {
     ).not.toBeInTheDocument();
     expect(
       screen.queryByText(
-        /Request Time must be in the iso-format YYYY-MM-DDTHH:MM:SS/
+        /Request Time must be in the iso-format YYYY-MM-DDTHH:MM/
       )
     ).not.toBeInTheDocument();
   });
