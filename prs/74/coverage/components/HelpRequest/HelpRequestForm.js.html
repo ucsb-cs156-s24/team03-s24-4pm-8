@@ -249,14 +249,7 @@
 <a name='L184'></a><a href='#L184'>184</a>
 <a name='L185'></a><a href='#L185'>185</a>
 <a name='L186'></a><a href='#L186'>186</a>
-<a name='L187'></a><a href='#L187'>187</a>
-<a name='L188'></a><a href='#L188'>188</a>
-<a name='L189'></a><a href='#L189'>189</a>
-<a name='L190'></a><a href='#L190'>190</a>
-<a name='L191'></a><a href='#L191'>191</a>
-<a name='L192'></a><a href='#L192'>192</a>
-<a name='L193'></a><a href='#L193'>193</a>
-<a name='L194'></a><a href='#L194'>194</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L187'></a><a href='#L187'>187</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -281,17 +274,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -471,12 +457,11 @@ function HelpRequestForm({
   // For explanation, see: https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime
   // Note that even this complex regex may still need some tweaks
 &nbsp;
-  // Stryker disable next-line Regex
+  // Stryker disable all
   const isodate_regex =
     /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
-&nbsp;
-  // Email regex
-  const email_regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i;
+  const email_regex = /[a-z0-9]+@[a-z]+.[a-z]{2,3}/;
+  // Stryker restore all
 &nbsp;
   return (
     &lt;Form onSubmit={handleSubmit(submitAction)}&gt;
@@ -497,48 +482,43 @@ function HelpRequestForm({
           &lt;/Col&gt;
         )}
 &nbsp;
-        &lt;Col&gt;
-          &lt;Form.Group className="mb-3"&gt;
-            &lt;Form.Label htmlFor="requesterEmail"&gt;Requester Email&lt;/Form.Label&gt;
-            &lt;Form.Control
-              data-testid="HelpRequestForm-requesterEmail"
-              id="requesterEmail"
-              type="text"
-              isInvalid={Boolean(errors.requesterEmail)}
-              {...register("requesterEmail", {
-                required: true,
-                pattern: email_regex,
-              })}
-            /&gt;
-            &lt;Form.Control.Feedback type="invalid"&gt;
-              {errors.requesterEmail &amp;&amp; "Requester Email is required."}
-              {errors.requesterEmail?.type === "pattern" &amp;&amp;
-                "Requester Email must be in the format email@address.ending, e.g. cgaucho@ucsb.edu or pconrad@gmail.com"}
-            &lt;/Form.Control.Feedback&gt;
-          &lt;/Form.Group&gt;
-        &lt;/Col&gt;
-        &lt;Col&gt;
-          &lt;Form.Group className="mb-3"&gt;
-            &lt;Form.Label htmlFor="requestTime"&gt;
-              Request Time (iso format)
-            &lt;/Form.Label&gt;
-            &lt;Form.Control
-              data-testid="HelpRequestForm-requestTime"
-              id="requestTime"
-              type="datetime-local"
-              isInvalid={Boolean(errors.requestTime)}
-              {...register("requestTime", {
-                required: true,
-                pattern: isodate_regex,
-              })}
-            /&gt;
-            &lt;Form.Control.Feedback type="invalid"&gt;
-              {errors.requestTime &amp;&amp; "Request Time is required."}
-              {errors.requesterEmail?.type === "pattern" &amp;&amp;
-                "Request Time must be in the iso-format YYYY-MM-DDTHH:MM"}
-            &lt;/Form.Control.Feedback&gt;
-          &lt;/Form.Group&gt;
-        &lt;/Col&gt;
+        &lt;Form.Group className="mb-3"&gt;
+          &lt;Form.Label htmlFor="requesterEmail"&gt;Requester Email&lt;/Form.Label&gt;
+          &lt;Form.Control
+            data-testid="HelpRequestForm-requesterEmail"
+            id="requesterEmail"
+            type="text"
+            isInvalid={Boolean(errors.requesterEmail)}
+            {...register("requesterEmail", {
+              required: true,
+              pattern: email_regex,
+            })}
+          /&gt;
+          &lt;Form.Control.Feedback type="invalid"&gt;
+            {errors.requesterEmail &amp;&amp; "Requester Email is required."}
+            {errors.requesterEmail?.type === "pattern" &amp;&amp;
+              "Requester Email must be in the format email@address.ending, e.g. cgaucho@ucsb.edu or pconrad@gmail.com"}
+          &lt;/Form.Control.Feedback&gt;
+        &lt;/Form.Group&gt;
+&nbsp;
+        &lt;Form.Group className="mb-3"&gt;
+          &lt;Form.Label htmlFor="requestTime"&gt;
+            Request Time (iso format)
+          &lt;/Form.Label&gt;
+          &lt;Form.Control
+            data-testid="HelpRequestForm-requestTime"
+            id="requestTime"
+            type="datetime-local"
+            isInvalid={Boolean(errors.requestTime)}
+            {...register("requestTime", {
+              required: true,
+              pattern: isodate_regex,
+            })}
+          /&gt;
+          &lt;Form.Control.Feedback type="invalid"&gt;
+            {errors.requestTime &amp;&amp; "Request Time is required."}
+          &lt;/Form.Control.Feedback&gt;
+        &lt;/Form.Group&gt;
       &lt;/Row&gt;
 &nbsp;
       &lt;Row&gt;
@@ -562,25 +542,24 @@ function HelpRequestForm({
       &lt;/Row&gt;
 &nbsp;
       &lt;Row&gt;
-        &lt;Col&gt;
-          &lt;Form.Group className="mb-3"&gt;
-            &lt;Form.Label htmlFor="tableOrBreakoutRoom"&gt;
-              Table or Breakout Room
-            &lt;/Form.Label&gt;
-            &lt;Form.Control
-              data-testid="HelpRequestForm-tableOrBreakoutRoom"
-              id="tableOrBreakoutRoom"
-              type="text"
-              isInvalid={Boolean(errors.tableOrBreakoutRoom)}
-              {...register("tableOrBreakoutRoom", {
-                required: "Table or Breakout Room is required.",
-              })}
-            /&gt;
-            &lt;Form.Control.Feedback type="invalid"&gt;
-              {errors.tableOrBreakoutRoom?.message}
-            &lt;/Form.Control.Feedback&gt;
-          &lt;/Form.Group&gt;
-        &lt;/Col&gt;
+        &lt;Form.Group className="mb-3"&gt;
+          &lt;Form.Label htmlFor="tableOrBreakoutRoom"&gt;
+            Table or Breakout Room
+          &lt;/Form.Label&gt;
+          &lt;Form.Control
+            data-testid="HelpRequestForm-tableOrBreakoutRoom"
+            id="tableOrBreakoutRoom"
+            type="text"
+            isInvalid={Boolean(errors.tableOrBreakoutRoom)}
+            {...register("tableOrBreakoutRoom", {
+              required: true,
+            })}
+          /&gt;
+          &lt;Form.Control.Feedback type="invalid"&gt;
+            {errors.tableOrBreakoutRoom &amp;&amp;
+              "Table or Breakout Room is required."}
+          &lt;/Form.Control.Feedback&gt;
+        &lt;/Form.Group&gt;
       &lt;/Row&gt;
 &nbsp;
       &lt;Row&gt;
@@ -649,7 +628,7 @@ export default HelpRequestForm;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed May 08 2024 13:29:46 GMT-0700 (Pacific Daylight Time)
+                at Wed May 08 2024 15:28:23 GMT-0700 (Pacific Daylight Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>
