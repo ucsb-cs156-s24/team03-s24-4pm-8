@@ -31,12 +31,7 @@ export default function UCSBOrganizationTable({
 
     const columns = [
         {
-            Header: 'id', // currently I have this added in the form and tests -- may need to remove, pending
-            accessor: 'id', // accessor is the "key" in the data
-        },
-
-        {
-            Header: 'orgCode', // I would like to change this in the form prior to final submission, but rn it is giving me problems if I do
+            Header: 'Org Acronym', 
             accessor: 'orgCode',
         },
         {
