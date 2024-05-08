@@ -1,6 +1,4 @@
 import { render, waitFor, fireEvent, screen } from "@testing-library/react";
-import UCSBDateForm from "main/components/UCSBDates/UCSBDateForm";
-import { ucsbDatesFixtures } from "fixtures/ucsbDatesFixtures";
 import { BrowserRouter as Router } from "react-router-dom";
 import HelpRequestForm from "main/components/HelpRequest/HelpRequestForm";
 import { helpRequestFixtures } from "fixtures/helpRequestFixtures";
@@ -50,9 +48,7 @@ describe("HelpRequest tests", () => {
       "HelpRequestForm-requesterEmail"
     );
     const requestTimeField = screen.getByTestId("HelpRequestForm-requestTime");
-    const tableOrBreakoutRoomField = screen.getByTestId(
-      "HelpRequestForm-tableOrBreakoutRoom"
-    );
+
     const submitButton = screen.getByTestId("HelpRequestForm-submit");
 
     fireEvent.change(requestTimeField, { target: { value: "bad-input" } });
