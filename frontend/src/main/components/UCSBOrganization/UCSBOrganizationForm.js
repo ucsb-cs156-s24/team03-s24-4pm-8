@@ -22,23 +22,8 @@ function UCSBOrganizationForm({ initialContents, submitAction, buttonLabel = "Cr
     return (
         <Form onSubmit={handleSubmit(submitAction)}>
 
-            {initialContents && (
-                <Form.Group className="mb-3" >
-                <Form.Label htmlFor="id">Id</Form.Label>
-                <Form.Control
-                    data-testid={testIdPrefix + "-id"}
-                    id="id"
-                    type="text"
-                    {...register("id")}
-                    value={initialContents.id}
-                    disabled
-                />
-                </Form.Group>
-                
-            )}
-
             <Form.Group className="mb-3" >
-                    <Form.Label htmlFor="orgCode">orgCode</Form.Label>
+                    <Form.Label htmlFor="orgCode">Org Acronym</Form.Label>
                     <Form.Control
                         data-testid={testIdPrefix + "-orgCode"}
                         id="orgCode"
@@ -46,7 +31,7 @@ function UCSBOrganizationForm({ initialContents, submitAction, buttonLabel = "Cr
                         
                         isInvalid={Boolean(errors.orgCode)} // was originally .name
                         {...register("orgCode", {
-                            required: "orgCode is required.",
+                            required: "Org Acronym is required.",
                             maxLength : {
                                 value: 5,
                                 message: "Max length 5 characters"
@@ -74,7 +59,7 @@ function UCSBOrganizationForm({ initialContents, submitAction, buttonLabel = "Cr
                     type="text"
                     isInvalid={Boolean(errors.orgTranslationShort)} // was originally .name
                     {...register("orgTranslationShort", {
-                        required: "orgTranslationShort is required.",
+                        required: "Short Organization Name is required.",
                         maxLength : {
                             value: 30,
                             message: "Max length 30 characters"
@@ -94,7 +79,7 @@ function UCSBOrganizationForm({ initialContents, submitAction, buttonLabel = "Cr
                     type="text"
                     isInvalid={Boolean(errors.orgTranslation)}
                     {...register("orgTranslation", {
-                        required: "orgTranslation is required." ,
+                        required: "Full Organization Name is required." ,
                         maxLength : {
                             value: 50,
                             message: "Max length 50 characters"

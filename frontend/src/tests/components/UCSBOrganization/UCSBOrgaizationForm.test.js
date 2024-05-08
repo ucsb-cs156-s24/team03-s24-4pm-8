@@ -16,7 +16,7 @@ jest.mock('react-router-dom', () => ({
 describe("UCSBOrganizationForm tests", () => {
     const queryClient = new QueryClient();
 
-    const expectedHeaders = ["orgCode", "Short Organization Name", "Full Organization Name", "Inactive Status"];
+    const expectedHeaders = ["Org Acronym", "Short Organization Name", "Full Organization Name", "Inactive Status"];
     const testId = "UCSBOrganizationForm";
 
     test("renders correctly with no initialContents", async () => {
@@ -39,11 +39,10 @@ describe("UCSBOrganizationForm tests", () => {
 
     test("renders correctly when passing in initialContents", async () => {
         render(
-            <QueryClientProvider client={queryClient}>
-                <Router>
-                    <UCSBOrganizationForm initialContents={ucsbOrganizationFixtures.oneOrganization} />
-                </Router>
-            </QueryClientProvider>
+            
+            <Router>
+                <UCSBOrganizationForm initialContents={ucsbOrganizationFixtures.oneOrganization} />
+            </Router>
         );
 
         expect(await screen.findByText(/Create/)).toBeInTheDocument();
@@ -58,8 +57,8 @@ describe("UCSBOrganizationForm tests", () => {
         // passes with ot without these ^^ 
 
         // IDK if I am allowed to put Id in here 
-        expect(await screen.findByTestId(`${testId}-id`)).toBeInTheDocument();
-        expect(screen.getByText(`Id`)).toBeInTheDocument();
+        //expect(await screen.findByTestId(`${testId}-id`)).toBeInTheDocument();
+        //expect(screen.getByText(`Id`)).toBeInTheDocument();
     });
 
 
@@ -96,9 +95,9 @@ describe("UCSBOrganizationForm tests", () => {
 
 
         //await screen.findByText(/orgCode is required/);
-        await screen.findByText(/orgTranslationShort is required/);
-        expect(screen.getByText(/orgCode is required/)).toBeInTheDocument();
-        expect(screen.getByText(/orgTranslation is required/)).toBeInTheDocument();
+        await screen.findByText(/Short Organization Name is required/);
+        expect(screen.getByText(/Org Acronym is required/)).toBeInTheDocument();
+        expect(screen.getByText(/Full Organization Name is required/)).toBeInTheDocument();
 
 
         const orgCodeInput = screen.getByTestId(`${testId}-orgCode`);
@@ -122,10 +121,19 @@ describe("UCSBOrganizationForm tests", () => {
 
         await waitFor(() => {
             expect(screen.getByText(/Max length 5 characters/)).toBeInTheDocument();
+
+        });
+
+        await waitFor(() => {
             expect(screen.getByText(/Max length 30 characters/)).toBeInTheDocument();
+
+        });
+
+        await waitFor(() => {
             expect(screen.getByText(/Max length 50 characters/)).toBeInTheDocument();
 
         });
+        
     });
 
 });
