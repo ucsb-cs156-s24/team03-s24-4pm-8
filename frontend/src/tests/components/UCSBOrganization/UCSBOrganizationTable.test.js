@@ -1,5 +1,5 @@
 import { fireEvent, render, waitFor, screen } from "@testing-library/react";
-import { restaurantFixtures, ucsbOrganizationFixtures } from "fixtures/ucsbOrganizationFixtures";
+import { ucsbOrganizationFixtures } from "fixtures/ucsbOrganizationFixtures";
 import UCSBOrganizationTable from "main/components/UCSBOrganization/UCSBOrgaizationTable";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
@@ -29,7 +29,7 @@ describe("UCSBOrganizationTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBOrganizationTable ucsborganizations={[]} currentUser={currentUser} />
+          <UCSBOrganizationTable ucsborganization={[]} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
     );
@@ -54,7 +54,7 @@ describe("UCSBOrganizationTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBOrganizationTable ucsborganizations={ucsbOrganizationFixtures.threeOrganizations} currentUser={currentUser} />
+          <UCSBOrganizationTable ucsborganization={ucsbOrganizationFixtures.threeOrganizations} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
     );
@@ -129,7 +129,7 @@ describe("UCSBOrganizationTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBOrganizationTable ucsborganizations={ucsbOrganizationFixtures.threeOrganizations} currentUser={currentUser} />
+          <UCSBOrganizationTable ucsborganization={ucsbOrganizationFixtures.threeOrganizations} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
     );
@@ -137,6 +137,10 @@ describe("UCSBOrganizationTable tests", () => {
     // assert - check that the expected content is rendered
     expect(screen.getByTestId(`${testId}-cell-row-0-col-orgCode`)).toHaveTextContent("OSLI");
     expect(screen.getByTestId(`${testId}-cell-row-0-col-orgTranslationShort`)).toHaveTextContent("STUDENT LIFE");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-orgTranslation`)).toHaveTextContent("OFFICE OF STUDENT LIFE");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-inactive`)).toHaveTextContent("true");
+
+
 
     const editButton = screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`);
     expect(editButton).toBeInTheDocument();
@@ -145,7 +149,7 @@ describe("UCSBOrganizationTable tests", () => {
     fireEvent.click(editButton);
 
     // assert - check that the navigate function was called with the expected path
-    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/ucsborganizations/edit/OSLI'));
+    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/ucsborganization/edit/OSLI'));
 
   });
 
@@ -157,7 +161,7 @@ describe("UCSBOrganizationTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBOrganizationTable ucsborganizations={ucsbOrganizationFixtures.threeOrganizations} currentUser={currentUser} />
+          <UCSBOrganizationTable ucsborganization={ucsbOrganizationFixtures.threeOrganizations} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
     );
