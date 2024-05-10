@@ -2,7 +2,6 @@ import { fireEvent, render, waitFor, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
-import HelpRequestForm from "main/components/HelpRequest/HelpRequestForm";
 import { helpRequestFixtures } from "fixtures/helpRequestFixtures";
 import HelpRequestTable from "main/components/HelpRequest/HelpRequestTable";
 
@@ -15,6 +14,7 @@ jest.mock("react-router-dom", () => ({
 
 describe("HelpRequestTable tests", () => {
   const queryClient = new QueryClient();
+  const testId = "HelpRequestTable";
 
   test("Has the expected column headers and content for ordinary user", () => {
     const currentUser = currentUserFixtures.userOnly;
@@ -172,5 +172,38 @@ describe("HelpRequestTable tests", () => {
     await waitFor(() =>
       expect(mockedNavigate).toHaveBeenCalledWith("/helprequests/edit/1")
     );
+  });
+
+  test("Delete button calls delete callback", async () => {
+    // arrange
+    const currentUser = currentUserFixtures.adminUser;
+
+    // act - render the component
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <HelpRequestTable
+            helpRequests={helpRequestFixtures.threeHelpRequests}
+            currentUser={currentUser}
+          />
+        </MemoryRouter>
+      </QueryClientProvider>
+    );
+
+    // assert - check that the expected content is rendered
+    expect(
+      await screen.findByTestId(`${testId}-cell-row-0-col-id`)
+    ).toHaveTextContent("1");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-requesterEmail`)
+    ).toHaveTextContent("cgaucho@ucsb.edu");
+
+    const deleteButton = screen.getByTestId(
+      `${testId}-cell-row-0-col-Delete-button`
+    );
+    expect(deleteButton).toBeInTheDocument();
+
+    // act - click the delete button
+    fireEvent.click(deleteButton);
   });
 });
