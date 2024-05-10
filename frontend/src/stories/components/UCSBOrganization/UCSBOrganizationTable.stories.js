@@ -1,42 +1,42 @@
 import React from 'react';
-import UCSBOrgaizationTable from 'main/components/UCSBOrganization/UCSBOrgaizationTable';
+import UCSBOrganizationTable from 'main/components/UCSBOrganization/UCSBOrganizationTable';
 import { ucsbOrganizationFixtures } from 'fixtures/ucsbOrganizationFixtures';
 import { currentUserFixtures } from 'fixtures/currentUserFixtures';
 import { rest } from "msw";
 
 export default {
-    title: 'components/UCSBOrganization/UCSBOrgaizationTable',
-    component: UCSBOrgaizationTable
+    title: 'components/UCSBOrganization/UCSBOrganizationTable',
+    component: UCSBOrganizationTable
 };
 
 const Template = (args) => {
     return (
-        <UCSBOrgaizationTable {...args} />
+        <UCSBOrganizationTable {...args} />
     )
 };
 
 export const Empty = Template.bind({});
 
 Empty.args = {
-    ucsborganizations: []
+    ucsborganization: []
 };
 
 export const ThreeOrgsOrdinaryUser = Template.bind({});
 
 ThreeOrgsOrdinaryUser.args = {
-    ucsborganizations: ucsbOrganizationFixtures.threeOrganizations,
+    ucsborganization: ucsbOrganizationFixtures.threeOrganizations,
     currentUser: currentUserFixtures.userOnly,
 };
 
 export const ThreeOrgsAdminUser = Template.bind({});
 ThreeOrgsAdminUser.args = {
-    ucsborganizations: ucsbOrganizationFixtures.threeOrganizations,
+    ucsborganization: ucsbOrganizationFixtures.threeOrganizations,
     currentUser: currentUserFixtures.adminUser,
 }
 
 ThreeOrgsAdminUser.parameters = {
     msw: [
-        rest.delete('/api/ucsborganizations', (req, res, ctx) => {
+        rest.delete('/api/ucsborganization', (req, res, ctx) => {
             window.alert("DELETE: " + JSON.stringify(req.url));
             return res(ctx.status(200),ctx.json({}));
         }),
