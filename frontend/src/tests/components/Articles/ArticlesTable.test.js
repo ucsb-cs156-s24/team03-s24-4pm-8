@@ -146,6 +146,43 @@ describe("UserTable tests", () => {
 
     await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/articles/edit/2'));
 
+  }); //add last test from restaurants 
+
+
+  test("Delete button calls delete callback", async () => {
+    // arrange
+    const currentUser = currentUserFixtures.adminUser;
+    const testId = "ArticlesTable";
+
+    // act - render the component
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <ArticlesTable dates={articlesFixtures.threeArticles} currentUser={currentUser} />
+        </MemoryRouter>
+      </QueryClientProvider>
+    );
+
+    // assert - check that the expected content is rendered
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-title`)).toHaveTextContent("Sephora");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-url`)).toHaveTextContent("https://www.sephora.com/");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-explanation`)).toHaveTextContent("Sephora Makeup");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-email`)).toHaveTextContent("sephora@gmail.com")
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-dateAdded`)).toHaveTextContent("2024-05-02T12:00:00");
+
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-title`)).toHaveTextContent("MAC");
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-url`)).toHaveTextContent("https://www.mac.com/");
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-explanation`)).toHaveTextContent("MAC Makeup");
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-email`)).toHaveTextContent("mac@gmail.com");
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-dateAdded`)).toHaveTextContent("2023-02-02T12:00:00");
+
+    const deleteButton = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
+    expect(deleteButton).toBeInTheDocument();
+
+    // act - click the delete button
+    fireEvent.click(deleteButton);
   });
 
 });
