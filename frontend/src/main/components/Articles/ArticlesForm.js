@@ -24,6 +24,7 @@ function ArticlesForm({ initialContents, submitAction, buttonLabel = "Create" })
 
     // Stryker disable next-line all
     // const yyyyq_regex = /((19)|(20))\d{2}[1-4]/i; // Accepts from 1900-2099 followed by 1-4.  Close enough.
+    const email_regex = /[a-z0-9]+@[a-z]+.[a-z]{2,3}/;
 
     return (
 
@@ -108,11 +109,11 @@ function ArticlesForm({ initialContents, submitAction, buttonLabel = "Create" })
                             type="text"
                             isInvalid={Boolean(errors.email)}
                             {...register("email", {
-                                required: "email is required."
-                            })}
+                                required: true, pattern:email_regex})}
                         />
                         <Form.Control.Feedback type="invalid">
-                            {errors.email?.message}
+                            {errors.email && 'email is required.'}
+                            {errors.email?.type === 'pattern' && 'email is wrong format.'}
                         </Form.Control.Feedback>
                     </Form.Group>
                 </Col>
@@ -127,7 +128,7 @@ function ArticlesForm({ initialContents, submitAction, buttonLabel = "Create" })
                             {...register("dateAdded", { required: true, pattern: isodate_regex })}
                         />
                         <Form.Control.Feedback type="invalid">
-                            {errors.dateAdded && 'dateAdded is required. '}
+                            {errors.dateAdded && 'dateAdded is required.'}
                             {/* {errors.dateAdded?.type === "pattern" && 'Date must be in isodate format'} */}
                         </Form.Control.Feedback>
                     </Form.Group>
