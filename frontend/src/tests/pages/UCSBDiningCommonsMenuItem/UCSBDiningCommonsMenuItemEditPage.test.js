@@ -89,8 +89,7 @@ describe("UCSBDiningCommonsMenuItemEditPage tests", () => {
 
         const queryClient = new QueryClient();
     
-        test("Is populated with the data provided", async () => {
-
+        test("Is populated with the data provided", async () => { 
             render(
                 <QueryClientProvider client={queryClient}>
                     <MemoryRouter>
