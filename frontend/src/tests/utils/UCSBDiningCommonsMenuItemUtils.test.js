@@ -43,7 +43,7 @@ describe("UCSBDiningCommonsMenuItemUtils", () => {
 
             // assert
             expect(result).toEqual({
-                url: "/api/UCSBDiningCommonsMenuItems",
+                url: "/api/diningcommonsmenuitem",
                 method: "DELETE",
                 params: { id: 17 }
             });
