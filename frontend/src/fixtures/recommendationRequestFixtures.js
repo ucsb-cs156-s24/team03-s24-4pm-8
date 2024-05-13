@@ -1,4 +1,4 @@
-const recommendationRequestsFixtures = {
+const recommendationRequestFixtures = {
     oneRequest: {
         "id": 1,
         "requesterEmail": "cgaucho@ucsb.edu",
@@ -40,4 +40,4 @@ const recommendationRequestsFixtures = {
 };
 
 
-export { recommendationRequestsFixtures };
+export { recommendationRequestFixtures };
