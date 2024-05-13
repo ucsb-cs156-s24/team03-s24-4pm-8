@@ -9,7 +9,7 @@ const articlesFixtures = {
     },
     threeArticles: [
         {
-            "id": 1,
+            "id": 2,
             "title": "Sephora",
             "url": "https://www.sephora.com/",
             "explanation": "Sephora Makeup",
@@ -17,7 +17,7 @@ const articlesFixtures = {
             "dateAdded":"2024-05-02T12:00:00"
         },
         {
-            "id": 2,
+            "id": 3,
             "title": "MAC",
             "url": "https://www.mac.com/",
             "explanation": "MAC Makeup",
@@ -25,7 +25,7 @@ const articlesFixtures = {
             "dateAdded":"2023-02-02T12:00:00"
         },
         {
-            "id": 3,
+            "id": 4,
             "title": "Jo Malone",
             "url": "https://www.jomalone.com/",
             "explanation": "Perfume and Candles",
