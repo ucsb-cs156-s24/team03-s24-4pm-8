@@ -1,7 +1,6 @@
 import React from "react";
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
-import { ucsbDatesFixtures } from "fixtures/ucsbDatesFixtures";
 import { rest } from "msw";
 
 import HelpRequestIndexPage from "main/pages/HelpRequest/HelpRequestIndexPage";
