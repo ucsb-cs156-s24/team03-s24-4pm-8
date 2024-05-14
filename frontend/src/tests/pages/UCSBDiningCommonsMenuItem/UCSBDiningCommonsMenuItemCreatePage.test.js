@@ -46,7 +46,7 @@ describe("UCSBDiningCommonsMenuItemCreatePage tests", () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <UCSBDiningCommonsMenuItemsCreatePage />
+                    <UCSBDiningCommonsMenuItemsCreatePage/>
                 </MemoryRouter>
             </QueryClientProvider>
         );
@@ -98,7 +98,7 @@ describe("UCSBDiningCommonsMenuItemCreatePage tests", () => {
         fireEvent.click(createButton); 
 
         await waitFor(() => expect(axiosMock.history.post.length).toBe(1)); // what is this 
-
+ 
         expect(axiosMock.history.post[0].params).toEqual({
             //id: 1,
             diningCommonsCode: "ortega",
