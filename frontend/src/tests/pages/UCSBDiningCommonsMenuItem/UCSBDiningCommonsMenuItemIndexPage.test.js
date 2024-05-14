@@ -104,7 +104,7 @@ describe("UCSBDiningCommonsMenuItemIndexPage tests", () => {
         const restoreConsole = mockConsole();
 
         render(
-            <QueryClientProvider client={queryClient}>
+            <QueryClientProvider client={queryClient}> 
                 <MemoryRouter>
                     <UCSBDiningCommonsMenuItemIndexPage/>
                 </MemoryRouter>
