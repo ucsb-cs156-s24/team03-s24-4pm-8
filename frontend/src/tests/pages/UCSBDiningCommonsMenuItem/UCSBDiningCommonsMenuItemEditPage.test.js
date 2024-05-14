@@ -160,7 +160,7 @@ describe("UCSBDiningCommonsMenuItemEditPage tests", () => {
             expect(diningCommonsCodeField).toHaveValue("ortega");
             expect(nameField).toHaveValue("Baked Pesto Pasta with Chicken");
             expect(stationField).toHaveValue("Entree Specials");
-            expect(submitButton).toBeInTheDocument();
+            expect(submitButton).toBeInTheDocument(); 
 
             // fireEvent.change(nameField, { target: { value: 'Freebirds World Burrito' } })
             // fireEvent.change(descriptionField, { target: { value: 'Big Burritos' } })

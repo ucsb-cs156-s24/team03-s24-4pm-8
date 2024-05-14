@@ -63,7 +63,7 @@ describe("UCSBDiningCommonsMenuItemIndexPage tests", () => {
         expect(button).toHaveAttribute("style", "float: right;");
     });
 
-    test("renders three UCSBDiningCommonsMenuItems correctly for regular user", async () => {
+    test("renders three UCSBDiningCommonsMenuItems correctly for regular user", async () => { 
         setupUserOnly();
         axiosMock.onGet("/api/diningcommonsmenuitem/all").reply(200, ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems);
 

@@ -105,7 +105,7 @@ describe("UCSBDiningCommonsMenuItemCreatePage tests", () => {
             name: "Baked Pesto Pasta with Chicken",
             station: "Entree Specials"
         });
-
+ 
         // assert - check that the toast was called with the expected message
         expect(mockToast).toBeCalledWith("New UCSBDiningCommonsMenuItem Created - id: 1 diningCommonsCode: ortega name: Baked Pesto Pasta with Chicken station: Entree Specials");
         expect(mockNavigate).toBeCalledWith({ "to": "/diningcommonsmenuitem" }); // this is rlly suspicious bc it didnt pass when i made the fires different 
