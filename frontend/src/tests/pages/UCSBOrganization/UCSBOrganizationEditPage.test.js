@@ -75,14 +75,14 @@ describe("UCSBOrganizationEditPage tests", () => {
             axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
             axiosMock.onGet("/api/ucsborganization", { params: { orgCode: "ABC" } }).reply(200, {
                 orgCode: "ABC",
-                orgTranslationShort: "Alpha Beta C",
-                orgTranslation: "Alpha Beta Club",
+                orgTranslationShort: "ALPHA BETA C",
+                orgTranslation: "ALPHA BETA CLUB",
                 inactive: false
             });
             axiosMock.onPut('/api/ucsborganization').reply(200, {
                 orgCode: "ABC",
-                orgTranslationShort: "Alpha Beta C",
-                orgTranslation: "Alpha Beta Club",
+                orgTranslationShort: "ALPHA BETA C",
+                orgTranslation: "ALPHA BETA CLUB",
                 inactive: false
             });
         });
@@ -110,9 +110,9 @@ describe("UCSBOrganizationEditPage tests", () => {
             expect(orgCodeField).toBeInTheDocument();
             expect(orgCodeField).toHaveValue("ABC");
             expect(orgTranslationShortField).toBeInTheDocument();
-            expect(orgTranslationShortField).toHaveValue("Alpha Beta C");
+            expect(orgTranslationShortField).toHaveValue("ALPHA BETA C");
             expect(orgTranslationField).toBeInTheDocument();
-            expect(orgTranslationField).toHaveValue("Alpha Beta Club");
+            expect(orgTranslationField).toHaveValue("ALPHA BETA CLUB");
             expect(inactiveField).toBeInTheDocument();
             expect(inactiveField).toHaveValue("false");
 
@@ -120,7 +120,7 @@ describe("UCSBOrganizationEditPage tests", () => {
 
             fireEvent.change(orgTranslationShortField, { target: { value: 'ALPHA BETA C' } });
             fireEvent.change(orgTranslationField, { target: { value: 'ALPHA BETA CLUB' } });
-            fireEvent.change(inactiveField, { target: { value: 'true' } });
+            fireEvent.change(inactiveField, { target: { value: "false" } });
             fireEvent.click(submitButton);
 
             await waitFor(() => expect(mockToast).toBeCalled());
@@ -134,7 +134,7 @@ describe("UCSBOrganizationEditPage tests", () => {
                 orgCode: "ABC",
                 orgTranslationShort: "ALPHA BETA C",
                 orgTranslation: "ALPHA BETA CLUB",
-                inactive: false
+                inactive: "false"
             })); // posted object
 
 

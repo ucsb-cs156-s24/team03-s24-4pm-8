@@ -6,12 +6,12 @@ import { useBackend, useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
 export default function UCSBOrganizationEditPage({storybook=false}) {
-    let { id } = useParams();
+    let { orgCode } = useParams();
 
     const { data: ucsborganization, _error, _status } =
         useBackend(
             // Stryker disable next-line all : don't test internal caching of React Query
-            [`/api/ucsborganization?orgCode=${orgCode}`],
+            [`/api/ucsborganization?orgCode=${orgCode}`], 
             {  // Stryker disable next-line all : GET is the default, so mutating this to "" doesn't introduce a bug
                 method: "GET",
                 url: `/api/ucsborganization`,
