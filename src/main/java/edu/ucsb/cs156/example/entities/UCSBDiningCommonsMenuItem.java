@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 @Data
 @AllArgsConstructor
@@ -15,6 +17,7 @@ import lombok.Builder;
 @Entity(name = "ucsbdiningcommonsmenuitem")
 public class UCSBDiningCommonsMenuItem {
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
   private String diningCommonsCode;
   private String name;

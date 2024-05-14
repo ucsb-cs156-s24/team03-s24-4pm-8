@@ -31,7 +31,7 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 
 @Tag(name = "UCSBDiningCommonsMenuItem")
-@RequestMapping("/api/ucsbdiningcommonsmenuitem")
+@RequestMapping("/api/diningcommonsmenuitem")
 @RestController
 @Slf4j
 
@@ -90,8 +90,9 @@ public class UCSBDiningCommonsMenuItemController extends ApiController{
             @Parameter(name="id") @RequestParam Long id) {
         UCSBDiningCommonsMenuItem ucsbDiningCommonsMenuItem = ucsbDiningCommonsMenuItemRepository.findById(id) 
                 .orElseThrow(() -> new EntityNotFoundException(UCSBDiningCommonsMenuItem.class, id));
-
+                log.info("deleted item: %s".formatted(ucsbDiningCommonsMenuItem));
                 ucsbDiningCommonsMenuItemRepository.delete(ucsbDiningCommonsMenuItem);
+        
         return genericMessage("UCSBDiningCommonsMenuItem with id %s deleted".formatted(id));
     }
 
