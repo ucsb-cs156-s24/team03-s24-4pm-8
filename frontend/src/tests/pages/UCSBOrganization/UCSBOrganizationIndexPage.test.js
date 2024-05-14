@@ -91,8 +91,7 @@ describe("UCSBOrganizationIndexPage tests", () => {
         const orgTranslation = screen.getByText("OFFICE OF STUDENT LIFE");
         expect(orgTranslation).toBeInTheDocument();
 
-        const inactive = screen.getAllByText(true);
-        expect(inactive).toBeInTheDocument();
+        expect(screen.getByTestId(`${testId}-cell-row-0-col-inactive`)).toHaveTextContent("true");
 
         // for non-admin users, details button is visible, but the edit and delete buttons should not be visible
         expect(screen.queryByTestId("UCSBOrganizationTable-cell-row-0-col-Delete-button")).not.toBeInTheDocument();
