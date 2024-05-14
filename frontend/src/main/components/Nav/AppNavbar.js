@@ -70,8 +70,13 @@ export default function AppNavbar({
                 <Nav.Link as={Link} to="/ucsbdates">
                   UCSB Dates
                 </Nav.Link>
+<<<<<<< HEAD
                 <Nav.Link as={Link} to="/articles">
                   Articles
+=======
+                <Nav.Link as={Link} to="/helprequests">
+                  Help Request
+>>>>>>> 901345e2 (jm - moved help request to before menu item to fix merge conflicts)
                 </Nav.Link>
                 <Nav.Link as={Link} to="/placeholder">
                   Placeholder
@@ -84,9 +89,6 @@ export default function AppNavbar({
                 </Nav.Link>
                 <Nav.Link as={Link} to="/RecommendationRequest">
                   Recommendation Request
-                </Nav.Link>
-                <Nav.Link as={Link} to="/helprequests">
-                  Help Request
                 </Nav.Link>
               </>
             )}
