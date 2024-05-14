@@ -11,14 +11,14 @@ Deployments:
 
 TODO: Fill in this table with correct information. 
 
-| Table                     | Name         | Github Id |
-|---------------------------|--------------|-----------|
-| UCSBDiningCommonsMenuItem |              |           |
-| UCSBOrganization          |              |           |
-| RecommendationRequest     |              |           |
-| MenuItemReview            |              |           |
-| HelpRequest               |              |           |
-| Articles                  |              |           |
+| Table                     | Name               |       Github Id    |
+|---------------------------|--------------------|--------------------|
+| UCSBDiningCommonsMenuItem | Raina Kakani       | rainakakani21      |
+| UCSBOrganization          | Charlene Patenaude | charlene-patenaude |
+| RecommendationRequest     | Emily Thai         | emilythai          |
+| MenuItemReview            | Vaani Arora        | vaaniarora         |
+| HelpRequest               | Jeffrey Mun        | Jumshim            |
+| Articles                  |Niyati Mummidivarapu| niyati-m           |
 
 Remember though, that in spite of these initial  assignments, it is still
 a team project.  Please help other team members to finish their work
