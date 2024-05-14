@@ -1,5 +1,4 @@
 import { render, waitFor, fireEvent, screen } from "@testing-library/react";
-import UCSBDatesCreatePage from "main/pages/UCSBDates/UCSBDatesCreatePage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 
@@ -7,6 +6,8 @@ import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
+import HelpRequestCreatePage from "main/pages/HelpRequest/HelpRequestCreatePage";
+import { helpRequestFixtures } from "fixtures/helpRequestFixtures";
 
 const mockToast = jest.fn();
 jest.mock("react-toastify", () => {
@@ -31,7 +32,7 @@ jest.mock("react-router-dom", () => {
   };
 });
 
-describe("UCSBDatesCreatePage tests", () => {
+describe("HelpRequestCreatePage tests", () => {
   const axiosMock = new AxiosMockAdapter(axios);
 
   beforeEach(() => {
@@ -50,7 +51,7 @@ describe("UCSBDatesCreatePage tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBDatesCreatePage />
+          <HelpRequestCreatePage />
         </MemoryRouter>
       </QueryClientProvider>
     );
@@ -58,55 +59,70 @@ describe("UCSBDatesCreatePage tests", () => {
 
   test("when you fill in the form and hit submit, it makes a request to the backend", async () => {
     const queryClient = new QueryClient();
-    const ucsbDate = {
-      id: 17,
-      quarterYYYYQField: 20221,
-      name: "Groundhog Day",
-      localDateTime: "2022-02-02T00:00",
-    };
 
-    axiosMock.onPost("/api/ucsbdates/post").reply(202, ucsbDate);
+    const helpRequest = helpRequestFixtures.oneHelpRequest;
+
+    axiosMock.onPost("/api/helprequests/post").reply(202, helpRequest);
 
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBDatesCreatePage />
+          <HelpRequestCreatePage />
         </MemoryRouter>
       </QueryClientProvider>
     );
 
     await waitFor(() => {
       expect(
-        screen.getByTestId("UCSBDateForm-quarterYYYYQ")
+        screen.getByTestId("HelpRequestForm-requesterEmail")
       ).toBeInTheDocument();
     });
 
-    const quarterYYYYQField = screen.getByTestId("UCSBDateForm-quarterYYYYQ");
-    const nameField = screen.getByTestId("UCSBDateForm-name");
-    const localDateTimeField = screen.getByTestId("UCSBDateForm-localDateTime");
-    const submitButton = screen.getByTestId("UCSBDateForm-submit");
+    const requesterEmailField = screen.getByTestId(
+      "HelpRequestForm-requesterEmail"
+    );
+    const requestTimeField = screen.getByTestId("HelpRequestForm-requestTime");
+    const teamIdField = screen.getByTestId("HelpRequestForm-teamId");
+    const tableOrBreakoutRoomField = screen.getByTestId(
+      "HelpRequestForm-tableOrBreakoutRoom"
+    );
+    const explanationField = screen.getByTestId("HelpRequestForm-explanation");
+    const solvedField = screen.getByTestId("HelpRequestForm-solved");
+    const submitButton = screen.getByTestId("HelpRequestForm-submit");
 
-    fireEvent.change(quarterYYYYQField, { target: { value: "20221" } });
-    fireEvent.change(nameField, { target: { value: "Groundhog Day" } });
-    fireEvent.change(localDateTimeField, {
-      target: { value: "2022-02-02T00:00" },
+    fireEvent.change(requesterEmailField, {
+      target: { value: "cgaucho@ucsb.edu" },
     });
-
-    expect(submitButton).toBeInTheDocument();
-
+    fireEvent.change(teamIdField, { target: { value: "s24-5pm-3" } });
+    fireEvent.change(tableOrBreakoutRoomField, {
+      target: { value: "7" },
+    });
+    fireEvent.change(requestTimeField, {
+      target: { value: "2022-04-20T17:35" },
+    });
+    fireEvent.change(explanationField, {
+      target: { value: "Need help with Swagger-ui" },
+    });
+    fireEvent.click(solvedField, {
+      target: { value: true },
+    });
     fireEvent.click(submitButton);
 
     await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
 
     expect(axiosMock.history.post[0].params).toEqual({
-      localDateTime: "2022-02-02T00:00",
-      name: "Groundhog Day",
-      quarterYYYYQ: "20221",
+      requesterEmail: "cgaucho@ucsb.edu",
+      teamId: "s24-5pm-3",
+      tableOrBreakoutRoom: "7",
+      requestTime: "2022-04-20T17:35",
+      explanation: "Need help with Swagger-ui",
+      solved: "true",
     });
 
     expect(mockToast).toBeCalledWith(
-      "New ucsbDate Created - id: 17 name: Groundhog Day"
+      "New helpRequest created - id: 1, requesterEmail: cgaucho@ucsb.edu"
     );
-    expect(mockNavigate).toBeCalledWith({ to: "/ucsbdates" });
+
+    expect(mockNavigate).toBeCalledWith({ to: "/helprequests" });
   });
 });
