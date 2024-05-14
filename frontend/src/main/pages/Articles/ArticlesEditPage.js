@@ -1,4 +1,5 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
+
 import { useParams } from "react-router-dom";
 import ArticlesForm from "main/components/Articles/ArticlesForm";
 import { Navigate } from 'react-router-dom'
@@ -65,6 +66,16 @@ export default function ArticlesEditPage({storybook=false}) {
         {
           article && <ArticlesForm initialContents={article} submitAction={onSubmit} buttonLabel="Update" />
         }
+
+
+export default function ArticlesEditPage() {
+
+  // Stryker disable all : placeholder for future implementation
+  return (
+    <BasicLayout>
+      <div className="pt-2">
+        <h1>Edit page not yet implemented</h1>
+
       </div>
     </BasicLayout>
   )

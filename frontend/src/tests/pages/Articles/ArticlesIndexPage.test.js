@@ -1,3 +1,4 @@
+
 import { fireEvent, render, waitFor, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
@@ -22,18 +23,31 @@ jest.mock('react-toastify', () => {
     };
 });
 
+
+import { render, screen } from "@testing-library/react";
+import ArticlesIndexPage from "main/pages/Articles/ArticlesIndexPage";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { MemoryRouter } from "react-router-dom";
+
+import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
+import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
+import axios from "axios";
+import AxiosMockAdapter from "axios-mock-adapter";
+
+
 describe("ArticlesIndexPage tests", () => {
 
     const axiosMock = new AxiosMockAdapter(axios);
 
-    const testId = "ArticlesTable";
 
+    const testId = "ArticlesTable";
     const setupUserOnly = () => {
         axiosMock.reset();
         axiosMock.resetHistory();
         axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
     };
+
 
     const setupAdminUser = () => {
         axiosMock.reset();
@@ -100,6 +114,13 @@ describe("ArticlesIndexPage tests", () => {
         axiosMock.onGet("/api/articles/all").timeout();
         const restoreConsole = mockConsole();
 
+    const queryClient = new QueryClient();
+    test("Renders expected content", () => {
+        // arrange
+
+        setupUserOnly();
+
+
         // act
         render(
             <QueryClientProvider client={queryClient}>
@@ -110,6 +131,7 @@ describe("ArticlesIndexPage tests", () => {
         );
 
         // assert
+
         await waitFor(() => { expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1); });
 
         const errorMessage = console.error.mock.calls[0][0];
@@ -152,3 +174,12 @@ describe("ArticlesIndexPage tests", () => {
     });
 
 });
+
+        expect(screen.getByText("Index page not yet implemented")).toBeInTheDocument();
+        expect(screen.getByText("Create")).toBeInTheDocument();
+        expect(screen.getByText("Edit")).toBeInTheDocument();
+    });
+
+});
+
+

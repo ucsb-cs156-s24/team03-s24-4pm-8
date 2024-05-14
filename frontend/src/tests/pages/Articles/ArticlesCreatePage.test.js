@@ -1,4 +1,7 @@
+
 import { render, waitFor, fireEvent, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+
 import ArticlesCreatePage from "main/pages/Articles/ArticlesCreatePage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
@@ -7,6 +10,7 @@ import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
+
 
 const mockToast = jest.fn();
 jest.mock('react-toastify', () => {
@@ -33,10 +37,18 @@ describe("ArticlesCreatePage tests", () => {
     const axiosMock =new AxiosMockAdapter(axios);
 
     beforeEach(() => {
+=======
+describe("ArticlesCreatePage tests", () => {
+
+    const axiosMock = new AxiosMockAdapter(axios);
+
+    const setupUserOnly = () => {
+
         axiosMock.reset();
         axiosMock.resetHistory();
         axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
+
     });
 
     test("renders without crashing", () => {
@@ -64,6 +76,17 @@ describe("ArticlesCreatePage tests", () => {
 
         axiosMock.onPost("/api/articles/post").reply( 202, article );
 
+
+    };
+
+    const queryClient = new QueryClient();
+    test("Renders expected content", () => {
+        // arrange
+
+        setupUserOnly();
+       
+        // act
+
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
@@ -71,6 +94,7 @@ describe("ArticlesCreatePage tests", () => {
                 </MemoryRouter>
             </QueryClientProvider>
         );
+
 
         await waitFor(() => {
             expect(screen.getByTestId("ArticlesForm-title")).toBeInTheDocument();
@@ -110,3 +134,11 @@ describe("ArticlesCreatePage tests", () => {
 
 
 });
+
+        // assert
+        expect(screen.getByText("Create page not yet implemented")).toBeInTheDocument();
+    });
+
+});
+
+
