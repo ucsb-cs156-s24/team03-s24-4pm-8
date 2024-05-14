@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import UCSBOrganizationCreatePage from "main/pages/UCSBOrganization/UCSBOrganizationCreatePage";
+import UCSBDiningCommonsMenuItemsCreatePage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemCreatePage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 
@@ -8,7 +8,7 @@ import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 
-describe("UCSBOrganizationCreatePage tests", () => {
+describe("UCSBDiningCommonsMenuItemsCreatePage tests", () => {
 
     const axiosMock = new AxiosMockAdapter(axios);
 
@@ -29,7 +29,7 @@ describe("UCSBOrganizationCreatePage tests", () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <UCSBOrganizationCreatePage />
+                    <UCSBDiningCommonsMenuItemsCreatePage />
                 </MemoryRouter>
             </QueryClientProvider>
         );

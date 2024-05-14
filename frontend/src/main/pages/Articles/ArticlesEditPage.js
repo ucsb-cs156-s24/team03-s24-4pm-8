@@ -1,20 +1,20 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import { useParams } from "react-router-dom";
-import MenuItemReviewForm from "main/components/MenuItemReview/MenuItemReviewForm";
+import ArticlesForm from "main/components/Articles/ArticlesForm";
 import { Navigate } from 'react-router-dom'
 import { useBackend, useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
-export default function MenuItemReviewEditPage({storybook=false}) {
+export default function ArticlesEditPage({storybook=false}) {
   let { id } = useParams();
 
-  const { data: review, _error, _status } =
+  const { data: article, _error, _status } =
     useBackend(
       // Stryker disable next-line all : don't test internal caching of React Query
-      [`/api/menuitemreview?id=${id}`],
+      [`/api/articles?id=${id}`],
       {  // Stryker disable next-line all : GET is the default, so changing this to "" doesn't introduce a bug
         method: "GET",
-        url: `/api/menuitemreview`,
+        url: `/api/articles`,
         params: {
           id
         }
@@ -22,30 +22,30 @@ export default function MenuItemReviewEditPage({storybook=false}) {
     );
 
 
-  const objectToAxiosPutParams = (review) => ({
-    url: "/api/menuitemreview",
+  const objectToAxiosPutParams = (article) => ({
+    url: "/api/articles",
     method: "PUT",
     params: {
-      id: review.id,
+      id: article.id,
     },
     data: {
-      itemId: review.itemId,
-      reviewerEmail: review.reviewerEmail,
-      stars: review.stars,
-      dateReviewed: review.dateReviewed,
-      comments: review.comments
+      title: article.title,
+      url: article.url,
+      explanation: article.explanation,
+      email: article.email,
+      dateAdded: article.dateAdded
     }
   });
 
-  const onSuccess = (review) => {
-    toast(`Menu Item Review Updated - id: ${review.id} itemId: ${review.itemId} reviewerEmail: ${review.reviewerEmail} stars: ${review.stars} dateReviewed: ${review.dateReviewed} comments: ${review.comments}`);
+  const onSuccess = (article) => {
+    toast(`Article Updated - id: ${article.id} title: ${article.title}`);
   }
 
   const mutation = useBackendMutation(
     objectToAxiosPutParams,
     { onSuccess },
     // Stryker disable next-line all : hard to set up test for caching
-    [`/api/menuitemreview?id=${id}`]
+    [`/api/articles?id=${id}`]
   );
 
   const { isSuccess } = mutation
@@ -55,15 +55,15 @@ export default function MenuItemReviewEditPage({storybook=false}) {
   }
 
   if (isSuccess && !storybook) {
-    return <Navigate to="/menuitemreview" />
+    return <Navigate to="/articles" />
   }
 
   return (
     <BasicLayout>
       <div className="pt-2">
-        <h1>Edit Menu Item Review</h1>
+        <h1>Edit Article</h1>
         {
-          review && <MenuItemReviewForm initialContents={review} submitAction={onSubmit} buttonLabel="Update" />
+          article && <ArticlesForm initialContents={article} submitAction={onSubmit} buttonLabel="Update" />
         }
       </div>
     </BasicLayout>
