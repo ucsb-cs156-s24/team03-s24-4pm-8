@@ -19,6 +19,11 @@ import UCSBDiningCommonsMenuItemIndexPage from "main/pages/UCSBDiningCommonsMenu
 import UCSBDiningCommonsMenuItemCreatePage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemCreatePage";
 import UCSBDiningCommonsMenuItemEditPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemEditPage";
 
+import RecommendationRequestIndexPage from "main/pages/RecommendationRequest/RecommendationRequestIndexPage";
+import RecommendationRequestCreatePage from "main/pages/RecommendationRequest/RecommendationRequestCreatePage";
+import RecommendationRequestEditPage from "main/pages/RecommendationRequest/RecommendationRequestEditPage";
+
+
 
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
 
@@ -97,6 +102,21 @@ function App() {
             </>
           )
         } 
+         {
+          hasRole(currentUser, "ROLE_USER") && (
+            <>
+              <Route exact path="/RecommendationRequest" element={<RecommendationRequestIndexPage />} />
+            </>
+          )
+        }
+        {
+          hasRole(currentUser, "ROLE_ADMIN") && (
+            <>
+              <Route exact path="/RecommendationRequest/edit/:id" element={<RecommendationRequestEditPage />} />
+              <Route exact path="/RecommendationRequest/create" element={<RecommendationRequestCreatePage />} />
+            </>
+          )
+        }
       </Routes>
     </BrowserRouter>
   );
