@@ -2,19 +2,19 @@ import React from "react";
 import OurTable, { ButtonColumn } from "main/components/OurTable";
 
 import { useBackendMutation } from "main/utils/useBackend";
-import { cellToAxiosParamsDelete, onDeleteSuccess } from "main/utils/UCSBOrganizationUtils"
+import { cellToAxiosParamsDelete, onDeleteSuccess } from "main/utils/UCSBDiningCommonsMenuItemUtils"
 import { useNavigate } from "react-router-dom";
 import { hasRole } from "main/utils/currentUser";
 
-export default function UCSBOrganizationTable({
-    ucsborganization,
+export default function UCSBDiningCommonsMenuItemTable({
+    UCSBDiningCommonsMenuItems, // not sure what this is 
     currentUser,
-    testIdPrefix = "UCSBOrganizationTable" }) {
+    testIdPrefix = "UCSBDiningCommonsMenuItemTable" }) {
 
     const navigate = useNavigate();
 
     const editCallback = (cell) => {
-        navigate(`/ucsborganization/edit/${cell.row.values.orgCode}`)
+        navigate(`/UCSBDiningCommonsMenuItems/edit/${cell.row.values.id}`)
     }
 
     // Stryker disable all : hard to test for query caching
@@ -22,7 +22,7 @@ export default function UCSBOrganizationTable({
     const deleteMutation = useBackendMutation(
         cellToAxiosParamsDelete,
         { onSuccess: onDeleteSuccess },
-        ["/api/ucsborganization/all"] 
+        ["/api/UCSBDiningCommonsMenuItems/all"]
     );
     // Stryker restore all 
 
@@ -31,23 +31,23 @@ export default function UCSBOrganizationTable({
 
     const columns = [
         {
-            Header: 'Org Acronym', 
-            accessor: 'orgCode',
+            Header: 'id', 
+            accessor: 'id', // accessor is the "key" in the data
+        },
+
+        {
+            Header: 'Dining Commons Code',
+            accessor: 'diningCommonsCode',
         },
         {
-            Header: 'Short Organization Name',
-            accessor: 'orgTranslationShort',
+            Header: 'Name',
+            accessor: 'name',
         },
         {
-            Header: 'Full Organization Name',
-            accessor: 'orgTranslation',
-        },
-        {
-            Header: 'Inactive Status',
-            id : 'inactive',
-            accessor: row => String(row.inactive)
+            Header: 'Station',
+            accessor: 'station',
         }
-    ];
+    ]; 
 
     if (hasRole(currentUser, "ROLE_ADMIN")) {
         columns.push(ButtonColumn("Edit", "primary", editCallback, testIdPrefix));
@@ -55,7 +55,7 @@ export default function UCSBOrganizationTable({
     } 
 
     return <OurTable
-        data={ucsborganization}
+        data={UCSBDiningCommonsMenuItems}
         columns={columns}
         testid={testIdPrefix}
     />;
