@@ -11,10 +11,10 @@ export default function ArticlesEditPage({storybook=false}) {
   const { data: article, _error, _status } =
     useBackend(
       // Stryker disable next-line all : don't test internal caching of React Query
-      [`/api/articles?id=${id}`],
+      [`/api/Articles?id=${id}`],
       {  // Stryker disable next-line all : GET is the default, so changing this to "" doesn't introduce a bug
         method: "GET",
-        url: `/api/articles`,
+        url: `/api/Articles`,
         params: {
           id
         }
@@ -23,7 +23,7 @@ export default function ArticlesEditPage({storybook=false}) {
 
 
   const objectToAxiosPutParams = (article) => ({
-    url: "/api/articles",
+    url: "/api/Articles",
     method: "PUT",
     params: {
       id: article.id,
@@ -45,7 +45,7 @@ export default function ArticlesEditPage({storybook=false}) {
     objectToAxiosPutParams,
     { onSuccess },
     // Stryker disable next-line all : hard to set up test for caching
-    [`/api/articles?id=${id}`]
+    [`/api/Articles?id=${id}`]
   );
 
   const { isSuccess } = mutation
