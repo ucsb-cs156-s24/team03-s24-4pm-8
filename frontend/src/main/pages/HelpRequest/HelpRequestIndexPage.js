@@ -1,6 +1,8 @@
 import HelpRequestTable from "main/components/HelpRequest/HelpRequestTable";
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
+import { useBackend } from "main/utils/useBackend";
+import { Button } from "react-bootstrap";
 
 export default function HelpRequestIndexPage() {
   const currentUser = useCurrentUser();
