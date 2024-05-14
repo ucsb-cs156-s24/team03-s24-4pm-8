@@ -46,7 +46,7 @@ describe("ArticlesIndexPage tests", () => {
         // arrange
         setupAdminUser();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/articles/all").reply(200, []);
+        axiosMock.onGet("/api/Articles/all").reply(200, []);
 
         // act
         render(
@@ -71,7 +71,7 @@ describe("ArticlesIndexPage tests", () => {
         // arrange
         setupUserOnly();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/articles/all").reply(200, articlesFixtures.threeArticles);
+        axiosMock.onGet("/api/Articles/all").reply(200, articlesFixtures.threeArticles);
 
         // act
         render(
@@ -97,7 +97,7 @@ describe("ArticlesIndexPage tests", () => {
         // arrange
         setupUserOnly();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/articles/all").timeout();
+        axiosMock.onGet("/api/Articles/all").timeout();
         const restoreConsole = mockConsole();
 
         // act
@@ -113,7 +113,7 @@ describe("ArticlesIndexPage tests", () => {
         await waitFor(() => { expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1); });
 
         const errorMessage = console.error.mock.calls[0][0];
-        expect(errorMessage).toMatch("Error communicating with backend via GET on /api/articles/all");
+        expect(errorMessage).toMatch("Error communicating with backend via GET on /api/Articles/all");
         restoreConsole();
 
         expect(screen.queryByTestId(`${testId}-cell-row-0-col-id`)).not.toBeInTheDocument();
@@ -123,8 +123,8 @@ describe("ArticlesIndexPage tests", () => {
         // arrange
         setupAdminUser();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/articles/all").reply(200, articlesFixtures.threeArticles);
-        axiosMock.onDelete("/api/articles").reply(200, "Article with id 1 was deleted");
+        axiosMock.onGet("/api/Articles/all").reply(200, articlesFixtures.threeArticles);
+        axiosMock.onDelete("/api/Articles").reply(200, "Article with id 1 was deleted");
 
         // act
         render(

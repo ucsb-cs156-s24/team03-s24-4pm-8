@@ -44,7 +44,7 @@ describe("ArticlesEditPage tests", () => {
             axiosMock.resetHistory();
             axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
             axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
-            axiosMock.onGet("/api/articles", { params: { id: 17 } }).timeout();
+            axiosMock.onGet("/api/Articles", { params: { id: 17 } }).timeout();
         });
 
         const queryClient = new QueryClient();
@@ -74,7 +74,7 @@ describe("ArticlesEditPage tests", () => {
             axiosMock.resetHistory();
             axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
             axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
-            axiosMock.onGet("/api/articles", { params: { id: 17 } }).reply(200, {
+            axiosMock.onGet("/api/Articles", { params: { id: 17 } }).reply(200, {
                 id: 17,
                 title: "Help Wanted",
                 url: "http://example.com/17",
@@ -82,7 +82,7 @@ describe("ArticlesEditPage tests", () => {
                 email: "help@gmail.com`",
                 dateAdded: "2024-04-19T15:00"
             });
-            axiosMock.onPut('/api/articles').reply(200, {
+            axiosMock.onPut('/api/Articles').reply(200, {
                 id: "17",
                 title: "Article 17",
                 url: "http://article.com/17",
