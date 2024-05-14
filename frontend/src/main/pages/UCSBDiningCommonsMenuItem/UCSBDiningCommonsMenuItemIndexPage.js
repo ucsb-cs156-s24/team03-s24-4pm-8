@@ -33,6 +33,7 @@ export default function UCSBDiningCommonsMenuItemIndexPage() {
         } 
     }
 
+<<<<<<< HEAD
     return (
         <BasicLayout>
             <div className="pt-2">
@@ -43,3 +44,29 @@ export default function UCSBDiningCommonsMenuItemIndexPage() {
         </BasicLayout>
     );
 }
+=======
+  return (
+      <BasicLayout>
+          <div className="pt-2">
+              {createButton()}
+              <h1>UCSB Dining Commons Menu Items</h1>
+              <UCSBDiningCommonsMenuItemsTable UCSBDiningCommonsMenuItems={diningcommonsmenuitems} currentUser={currentUser} />
+          </div>
+      </BasicLayout>
+  );
+}
+
+// export default function UCSBDiningCommonsMenuItemIndexPage() {
+
+//   // Stryker disable all : placeholder for future implementation
+//   return (
+//     <BasicLayout>
+//       <div className="pt-2">
+//         <h1>Index page not yet implemented</h1>
+//         <p><a href="/placeholder/create">Create</a></p>
+//         <p><a href="/placeholder/edit/1">Edit</a></p>
+//       </div>
+//     </BasicLayout>
+//   )
+// }
+>>>>>>> 96c38fa9 (Update UCSBDiningCommonsMenuItemIndexPage.js)
