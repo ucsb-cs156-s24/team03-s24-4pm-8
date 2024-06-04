@@ -97,6 +97,7 @@ public class HelpRequestIT {
                 LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
 
                 HelpRequest helpRequest1 = HelpRequest.builder()
+                                .id(1)
                                 .requesterEmail("tester@gmail.com")
                                 .teamId("s24-4pm-8")
                                 .tableOrBreakoutRoom("table")

@@ -22,9 +22,9 @@ public class HelpRequestWebIT extends WebTestCase {
         setupUser(true);
 
         page.getByText("Help Request").click();
-
-        page.getByText("Create Help Request").click();
         assertThat(page.getByText("Create Help Request")).isVisible();
+        page.getByText("Create Help Request").click();
+       
         page.getByTestId("HelpRequestForm-requesterEmail").fill("tester@gmail.com");
         page.getByTestId("HelpRequestForm-requestTime").fill("2022-04-20T17:35");
         page.getByTestId("HelpRequestForm-teamId").fill("s24-4pm-8");
