@@ -1,6 +1,8 @@
 package edu.ucsb.cs156.example.integration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,9 +23,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import java.time.LocalDateTime;
+
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
+import edu.ucsb.cs156.example.entities.HelpRequest;
 import edu.ucsb.cs156.example.entities.Restaurant;
+import edu.ucsb.cs156.example.repositories.HelpRequestRepository;
 import edu.ucsb.cs156.example.repositories.RestaurantRepository;
 import edu.ucsb.cs156.example.repositories.UserRepository;
 import edu.ucsb.cs156.example.services.CurrentUserService;
@@ -44,7 +51,7 @@ public class HelpRequestIT {
         public GrantedAuthoritiesService grantedAuthoritiesService;
 
         @Autowired
-        RestaurantRepository restaurantRepository;
+        HelpRequestRepository helpRequestRepository;
 
         @Autowired
         public MockMvc mockMvc;
@@ -60,19 +67,25 @@ public class HelpRequestIT {
         public void test_that_logged_in_user_can_get_by_id_when_the_id_exists() throws Exception {
                 // arrange
 
-                Restaurant restaurant = Restaurant.builder()
-                                .name("Taco Bell")
-                                .description("Mexican")
+                LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
+
+                HelpRequest helpRequest = HelpRequest.builder()
+                                .requesterEmail("tester@gmail.com")
+                                .teamId("s24-4pm-8")
+                                .tableOrBreakoutRoom("table")
+                                .requestTime(ldt1)
+                                .explanation("test 1!")
+                                .solved(true)
                                 .build();
                                 
-                restaurantRepository.save(restaurant);
+                helpRequestRepository.save(helpRequest);
 
                 // act
-                MvcResult response = mockMvc.perform(get("/api/restaurants?id=1"))
+                MvcResult response = mockMvc.perform(get("/api/helprequests?id=1"))
                                 .andExpect(status().isOk()).andReturn();
 
                 // assert
-                String expectedJson = mapper.writeValueAsString(restaurant);
+                String expectedJson = mapper.writeValueAsString(helpRequest);
                 String responseString = response.getResponse().getContentAsString();
                 assertEquals(expectedJson, responseString);
         }
@@ -81,21 +94,25 @@ public class HelpRequestIT {
         @Test
         public void an_admin_user_can_post_a_new_restaurant() throws Exception {
                 // arrange
+                LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
 
-                Restaurant restaurant1 = Restaurant.builder()
-                                .id(1L)
-                                .name("Chipotle")
-                                .description("Mexican")
+                HelpRequest helpRequest1 = HelpRequest.builder()
+                                .requesterEmail("tester@gmail.com")
+                                .teamId("s24-4pm-8")
+                                .tableOrBreakoutRoom("table")
+                                .requestTime(ldt1)
+                                .explanation("test")
+                                .solved(true)
                                 .build();
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                post("/api/restaurants/post?name=Chipotle&description=Mexican")
+                                post("/api/helprequests/post?requesterEmail=tester@gmail.com&teamId=s24-4pm-8&tableOrBreakoutRoom=table&requestTime=2022-01-03T00:00:00&explanation=test&solved=true")
                                                 .with(csrf()))
                                 .andExpect(status().isOk()).andReturn();
 
                 // assert
-                String expectedJson = mapper.writeValueAsString(restaurant1);
+                String expectedJson = mapper.writeValueAsString(helpRequest1);
                 String responseString = response.getResponse().getContentAsString();
                 assertEquals(expectedJson, responseString);
         }

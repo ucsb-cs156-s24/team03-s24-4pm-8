@@ -21,36 +21,40 @@ public class HelpRequestWebIT extends WebTestCase {
     public void admin_user_can_create_edit_delete_restaurant() throws Exception {
         setupUser(true);
 
-        page.getByText("Restaurants").click();
+        page.getByText("Help Request").click();
 
-        page.getByText("Create Restaurant").click();
-        assertThat(page.getByText("Create New Restaurant")).isVisible();
-        page.getByTestId("RestaurantForm-name").fill("Freebirds");
-        page.getByTestId("RestaurantForm-description").fill("Build your own burrito chain");
-        page.getByTestId("RestaurantForm-submit").click();
+        page.getByText("Create Help Request").click();
+        assertThat(page.getByText("Create Help Request")).isVisible();
+        page.getByTestId("HelpRequestForm-requesterEmail").fill("tester@gmail.com");
+        page.getByTestId("HelpRequestForm-requestTime").fill("2022-04-20T17:35");
+        page.getByTestId("HelpRequestForm-teamId").fill("s24-4pm-8");
+        page.getByTestId("HelpRequestForm-tableOrBreakoutRoom").fill("table 8");
+        page.getByTestId("HelpRequestForm-explanation").fill("help with swagger ui");
+        page.getByTestId("HelpRequestForm-solved").check();
+        page.getByTestId("HelpRequestForm-submit").click();
 
-        assertThat(page.getByTestId("RestaurantTable-cell-row-0-col-description"))
-                .hasText("Build your own burrito chain");
+        assertThat(page.getByTestId("HelpRequestTable-cell-row-0-col-explanation"))
+                .hasText("help with swagger ui");
 
-        page.getByTestId("RestaurantTable-cell-row-0-col-Edit-button").click();
-        assertThat(page.getByText("Edit Restaurant")).isVisible();
-        page.getByTestId("RestaurantForm-description").fill("THE BEST");
-        page.getByTestId("RestaurantForm-submit").click();
+        page.getByTestId("HelpRequestTable-cell-row-0-col-Edit-button").click();
+        assertThat(page.getByText("Edit Help Request")).isVisible();
+        page.getByTestId("HelpRequestForm-explanation").fill("no need");
+        page.getByTestId("HelpRequestForm-submit").click();
 
-        assertThat(page.getByTestId("RestaurantTable-cell-row-0-col-description")).hasText("THE BEST");
+        assertThat(page.getByTestId("HelpRequestTable-cell-row-0-col-explanation")).hasText("no need");
 
-        page.getByTestId("RestaurantTable-cell-row-0-col-Delete-button").click();
+        page.getByTestId("HelpRequestTable-cell-row-0-col-Delete-button").click();
 
-        assertThat(page.getByTestId("RestaurantTable-cell-row-0-col-name")).not().isVisible();
+        assertThat(page.getByTestId("HelpRequestTable-cell-row-0-col-explanation")).not().isVisible();
     }
 
     @Test
     public void regular_user_cannot_create_restaurant() throws Exception {
         setupUser(false);
 
-        page.getByText("Restaurants").click();
+        page.getByText("Help Request").click();
 
-        assertThat(page.getByText("Create Restaurant")).not().isVisible();
-        assertThat(page.getByTestId("RestaurantTable-cell-row-0-col-name")).not().isVisible();
+        assertThat(page.getByText("Create Help Request")).not().isVisible();
+        assertThat(page.getByTestId("HelpRequestTable-cell-row-0-col-explanation")).not().isVisible();
     }
 }
